@@ -39,8 +39,8 @@ const Navbar = () => {
                   <span>mol Business</span>
                   <span>Explore</span>
                   <span>English</span>
-                  <Link to='/login' className='link'>Sign In</Link>
-                  {!currentUser?.isSeller && <span>Become A seller</span>}
+                  {!currentUser?.username && <Link to='/login' className='link'>Sign In</Link>}
+                  {!currentUser?.isSeller && <span>Become A seller</span> }
                   { !currentUser && <button>Join</button> }
                   { currentUser && (
                       <div className="user" onClick={()=> setOpen(!open)}>
