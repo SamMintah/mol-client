@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-// import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import "./Navbar.scss"
 import profile from "../../assets/profile.jpg"
 
@@ -8,7 +8,7 @@ const Navbar = () => {
     const [active, setActive] = useState(false);
     const [open, setOpen] = useState(false);
 
-
+    const {pathname} = useLocation()
     const isActive = () => {
        window.scrollY > 0 ? setActive(true) : setActive(false)
    }
@@ -28,18 +28,18 @@ const Navbar = () => {
     }
 
   return (
-      <div className={active? 'navbar active' : 'navbar'} >
+      <div className={active || pathname !== '/' ? 'navbar active' : 'navbar'} >
           <div className="container">
               <div className="logo">
-                  {/* <Link to="/"> */}
-                  <span className='text'>Workr</span>
-                  {/* </Link> */}
+                  <Link to="/" className='link'>
+                  <span>mol..</span>
+                  </Link>
               </div>
               <div className="links">
-                  <span>Workr Business</span>
+                  <span>mol Business</span>
                   <span>Explore</span>
                   <span>English</span>
-                  <span>Sign In</span>
+                  <Link to='/login' className='link'>Sign In</Link>
                   {!currentUser?.isSeller && <span>Become A seller</span>}
                   { !currentUser && <button>Join</button> }
                   { currentUser && (
@@ -49,27 +49,52 @@ const Navbar = () => {
                          {open && <div className="options">
                               {currentUser?.isSeller && (
                                   <>
-                                      <span>Gigs</span>
-                                      <span>Add New Gig</span>
+                                      <Link to='/gigs' className='link'>Gigs</Link>
+                                      <Link to='/add' className='link'>Add New Gig</Link>
                                   </>   
                               ) }
-                              <span>Orders</span>
-                              <span>Messages</span>
-                              <span>Logout</span>
+                              <Link to='/orders' className='link'>Orders</Link>
+                              <Link to='/messages' className='link'>Messages</Link>
+                              <Link to='/logout' className='link'>Logout</Link>
                           </div>}
                       </div>
                   )}
               </div>
           </div>
-          {active && (
+          {(active || pathname !== '/') && (
             <>
-              <hr />
-              <div className="menu">
-                <span>Test</span>
-                <span>Test</span>
-                <span>Test</span>
-              </div>
-             </>
+            <hr />
+            <div className="menu">
+              <Link className="link menuLink" to="/">
+                Graphics & Design
+              </Link>
+              <Link className="link menuLink" to="/">
+                Video & Animation
+              </Link>
+              <Link className="link menuLink" to="/">
+                Writing & Translation
+              </Link>
+              <Link className="link menuLink" to="/">
+                AI Services
+              </Link>
+              <Link className="link menuLink" to="/">
+                Digital Marketing
+              </Link>
+              <Link className="link menuLink" to="/">
+                Music & Audio
+              </Link>
+              <Link className="link menuLink" to="/">
+                Programming & Tech
+              </Link>
+              <Link className="link menuLink" to="/">
+                Business
+              </Link>
+              <Link className="link menuLink" to="/">
+                Lifestyle
+              </Link>
+            </div>
+            <hr />
+          </>
           )} 
       </div>
   )
@@ -165,39 +190,39 @@ export default Navbar
 //         </div>
 //       </div>
 //       {(active || pathname !== "/") && (
-//         <>
-//           <hr />
-//           <div className="menu">
-//             <Link className="link menuLink" to="/">
-//               Graphics & Design
-//             </Link>
-//             <Link className="link menuLink" to="/">
-//               Video & Animation
-//             </Link>
-//             <Link className="link menuLink" to="/">
-//               Writing & Translation
-//             </Link>
-//             <Link className="link menuLink" to="/">
-//               AI Services
-//             </Link>
-//             <Link className="link menuLink" to="/">
-//               Digital Marketing
-//             </Link>
-//             <Link className="link menuLink" to="/">
-//               Music & Audio
-//             </Link>
-//             <Link className="link menuLink" to="/">
-//               Programming & Tech
-//             </Link>
-//             <Link className="link menuLink" to="/">
-//               Business
-//             </Link>
-//             <Link className="link menuLink" to="/">
-//               Lifestyle
-//             </Link>
-//           </div>
-//           <hr />
-//         </>
+        // <>
+        //   <hr />
+        //   <div className="menu">
+        //     <Link className="link menuLink" to="/">
+        //       Graphics & Design
+        //     </Link>
+        //     <Link className="link menuLink" to="/">
+        //       Video & Animation
+        //     </Link>
+        //     <Link className="link menuLink" to="/">
+        //       Writing & Translation
+        //     </Link>
+        //     <Link className="link menuLink" to="/">
+        //       AI Services
+        //     </Link>
+        //     <Link className="link menuLink" to="/">
+        //       Digital Marketing
+        //     </Link>
+        //     <Link className="link menuLink" to="/">
+        //       Music & Audio
+        //     </Link>
+        //     <Link className="link menuLink" to="/">
+        //       Programming & Tech
+        //     </Link>
+        //     <Link className="link menuLink" to="/">
+        //       Business
+        //     </Link>
+        //     <Link className="link menuLink" to="/">
+        //       Lifestyle
+        //     </Link>
+        //   </div>
+        //   <hr />
+        // </>
 //       )}
 //     </div>
 //   );
