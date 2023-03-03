@@ -1,23 +1,76 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+// import { Link } from 'react-router-dom'
 import "./Navbar.scss"
+import profile from "../../assets/profile.jpg"
 
 
 const Navbar = () => {
+    const [active, setActive] = useState(false);
+    const [open, setOpen] = useState(false);
+
+
+    const isActive = () => {
+       window.scrollY > 0 ? setActive(true) : setActive(false)
+   }
+
+    useEffect(() => {
+        window.addEventListener('scroll', isActive)   
+        return () => {
+            window.removeEventListener('scroll', isActive)
+        }
+    },[])
+
+
+    const currentUser = {
+        id: 1,
+        username: "sam",
+        isSeller:true
+    }
+
   return (
-      <div className='navbar'>
+      <div className={active? 'navbar active' : 'navbar'} >
           <div className="container">
               <div className="logo">
-               <span className='text'>Workr</span>
+                  {/* <Link to="/"> */}
+                  <span className='text'>Workr</span>
+                  {/* </Link> */}
               </div>
               <div className="links">
                   <span>Workr Business</span>
                   <span>Explore</span>
                   <span>English</span>
-                  <span>Become A seller</span>
                   <span>Sign In</span>
-                  <button>Join</button>
+                  {!currentUser?.isSeller && <span>Become A seller</span>}
+                  { !currentUser && <button>Join</button> }
+                  { currentUser && (
+                      <div className="user" onClick={()=> setOpen(!open)}>
+                          <img src={profile} alt="" />
+                          <span>{ currentUser?.username }</span>
+                         {open && <div className="options">
+                              {currentUser?.isSeller && (
+                                  <>
+                                      <span>Gigs</span>
+                                      <span>Add New Gig</span>
+                                  </>   
+                              ) }
+                              <span>Orders</span>
+                              <span>Messages</span>
+                              <span>Logout</span>
+                          </div>}
+                      </div>
+                  )}
               </div>
           </div>
+          {active && (
+            <>
+              <hr />
+              <div className="menu">
+                <span>Test</span>
+                <span>Test</span>
+                <span>Test</span>
+              </div>
+             </>
+          )} 
       </div>
   )
 }
