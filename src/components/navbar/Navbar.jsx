@@ -1,106 +1,124 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import "./Navbar.scss"
-import profile from "../../assets/profile.jpg"
-
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./Navbar.scss";
+import profile from "../../assets/profile.jpg";
 
 const Navbar = () => {
-    const [active, setActive] = useState(false);
-    const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(false);
+  const [open, setOpen] = useState(false);
 
-    const {pathname} = useLocation()
-    const isActive = () => {
-       window.scrollY > 0 ? setActive(true) : setActive(false)
-   }
+  const { pathname } = useLocation();
+  const isActive = () => {
+    window.scrollY > 0 ? setActive(true) : setActive(false);
+  };
 
-    useEffect(() => {
-        window.addEventListener('scroll', isActive)   
-        return () => {
-            window.removeEventListener('scroll', isActive)
-        }
-    },[])
+  useEffect(() => {
+    window.addEventListener("scroll", isActive);
+    return () => {
+      window.removeEventListener("scroll", isActive);
+    };
+  }, []);
 
-
-    const currentUser = {
-        id: 1,
-        username: "sam",
-        isSeller:true
-    }
+  const currentUser = {
+    id: 1,
+    username: "sam",
+    isSeller: true,
+  };
 
   return (
-      <div className={active || pathname !== '/' ? 'navbar active' : 'navbar'} >
-          <div className="container">
-              <div className="logo">
-                  <Link to="/" className='link'>
-                  <span>mol..</span>
-                  </Link>
-              </div>
-              <div className="links">
-                  <span>mol Business</span>
-                  <span>Explore</span>
-                  <span>English</span>
-                  {!currentUser?.username && <Link to='/login' className='link'>Sign In</Link>}
-                  {!currentUser?.isSeller && <span>Become A seller</span> }
-                  { !currentUser && <button>Join</button> }
-                  { currentUser && (
-                      <div className="user" onClick={()=> setOpen(!open)}>
-                          <img src={profile} alt="" />
-                          <span>{ currentUser?.username }</span>
-                         {open && <div className="options">
-                              {currentUser?.isSeller && (
-                                  <>
-                                      <Link to='/gigs' className='link'>Gigs</Link>
-                                      <Link to='/add' className='link'>Add New Gig</Link>
-                                  </>   
-                              ) }
-                              <Link to='/orders' className='link'>Orders</Link>
-                              <Link to='/messages' className='link'>Messages</Link>
-                              <Link to='/logout' className='link'>Logout</Link>
-                          </div>}
-                      </div>
+    <div className={active || pathname !== "/" ? "navbar active" : "navbar"}>
+      <div className="container">
+        <div className="logo">
+          <Link to="/" className="link">
+            <span>mol..</span>
+          </Link>
+        </div>
+        <div className="links">
+          <span>mol Business</span>
+          <span>Explore</span>
+          <span>English</span>
+          {!currentUser?.username && (
+            <Link to="/login" className="link">
+              Sign In
+            </Link>
+          )}
+          {!currentUser?.isSeller && <span>Become A seller</span>}
+          {!currentUser && <button>Join</button>}
+          {currentUser && (
+            <div className="user" onClick={() => setOpen(!open)}>
+              <img src={profile} alt="" />
+              <span>{currentUser?.username}</span>
+              {open && (
+                <div className="options">
+                  {currentUser?.isSeller && (
+                    <>
+                      <Link to="/gigs" className="link">
+                        Gigs
+                      </Link>
+                      <Link to="/add" className="link">
+                        Add New Gig
+                      </Link>
+                    </>
                   )}
-              </div>
-          </div>
-          {(active || pathname !== '/') && (
-            <>
-            <hr />
-            <div className="menu">
-              <Link className="link menuLink" to="/">
-                Graphics & Design
-              </Link>
-              <Link className="link menuLink" to="/">
-                Video & Animation
-              </Link>
-              <Link className="link menuLink" to="/">
-                Writing & Translation
-              </Link>
-              <Link className="link menuLink" to="/">
-                AI Services
-              </Link>
-              <Link className="link menuLink" to="/">
-                Digital Marketing
-              </Link>
-              <Link className="link menuLink" to="/">
-                Music & Audio
-              </Link>
-              <Link className="link menuLink" to="/">
-                Programming & Tech
-              </Link>
-              <Link className="link menuLink" to="/">
-                Business
-              </Link>
-              <Link className="link menuLink" to="/">
-                Lifestyle
-              </Link>
-            </div>
-            <hr />
-          </>
-          )} 
-      </div>
-  )
-}
+                  <Link to="/orders" className="link">
+                    Orders
+                  </Link>
+                  <Link to="/myGigs" className="link">
+                    myGigs
+                  </Link>
 
-export default Navbar
+                  <Link to="/messages" className="link">
+                    Messages
+                  </Link>
+                  <Link to="/logout" className="link">
+                    Logout
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+      {(active || pathname !== "/") && (
+        <>
+          <hr />
+          <div className="menu">
+            <Link className="link menuLink" to="/">
+              Graphics & Design
+            </Link>
+            <Link className="link menuLink" to="/">
+              Video & Animation
+            </Link>
+            <Link className="link menuLink" to="/">
+              Writing & Translation
+            </Link>
+            <Link className="link menuLink" to="/">
+              AI Services
+            </Link>
+            <Link className="link menuLink" to="/">
+              Digital Marketing
+            </Link>
+            <Link className="link menuLink" to="/">
+              Music & Audio
+            </Link>
+            <Link className="link menuLink" to="/">
+              Programming & Tech
+            </Link>
+            <Link className="link menuLink" to="/">
+              Business
+            </Link>
+            <Link className="link menuLink" to="/">
+              Lifestyle
+            </Link>
+          </div>
+          <hr />
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Navbar;
 
 // import React, { useEffect, useState } from "react";
 // import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -190,43 +208,42 @@ export default Navbar
 //         </div>
 //       </div>
 //       {(active || pathname !== "/") && (
-        // <>
-        //   <hr />
-        //   <div className="menu">
-        //     <Link className="link menuLink" to="/">
-        //       Graphics & Design
-        //     </Link>
-        //     <Link className="link menuLink" to="/">
-        //       Video & Animation
-        //     </Link>
-        //     <Link className="link menuLink" to="/">
-        //       Writing & Translation
-        //     </Link>
-        //     <Link className="link menuLink" to="/">
-        //       AI Services
-        //     </Link>
-        //     <Link className="link menuLink" to="/">
-        //       Digital Marketing
-        //     </Link>
-        //     <Link className="link menuLink" to="/">
-        //       Music & Audio
-        //     </Link>
-        //     <Link className="link menuLink" to="/">
-        //       Programming & Tech
-        //     </Link>
-        //     <Link className="link menuLink" to="/">
-        //       Business
-        //     </Link>
-        //     <Link className="link menuLink" to="/">
-        //       Lifestyle
-        //     </Link>
-        //   </div>
-        //   <hr />
-        // </>
+// <>
+//   <hr />
+//   <div className="menu">
+//     <Link className="link menuLink" to="/">
+//       Graphics & Design
+//     </Link>
+//     <Link className="link menuLink" to="/">
+//       Video & Animation
+//     </Link>
+//     <Link className="link menuLink" to="/">
+//       Writing & Translation
+//     </Link>
+//     <Link className="link menuLink" to="/">
+//       AI Services
+//     </Link>
+//     <Link className="link menuLink" to="/">
+//       Digital Marketing
+//     </Link>
+//     <Link className="link menuLink" to="/">
+//       Music & Audio
+//     </Link>
+//     <Link className="link menuLink" to="/">
+//       Programming & Tech
+//     </Link>
+//     <Link className="link menuLink" to="/">
+//       Business
+//     </Link>
+//     <Link className="link menuLink" to="/">
+//       Lifestyle
+//     </Link>
+//   </div>
+//   <hr />
+// </>
 //       )}
 //     </div>
 //   );
 // }
 
 // export default Navbar;
-

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import newRequest from "../../utils/newRequest";
+// import newRequest from "../../utils/newRequest";
 
 const Success = () => {
   const { search } = useLocation();
@@ -11,7 +11,7 @@ const Success = () => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        await newRequest.put("/orders", { payment_intent });
+        // await newRequest.put("/orders", { payment_intent });
         setTimeout(() => {
           navigate("/orders");
         }, 5000);
