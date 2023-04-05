@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.scss";
 import profile from "../../assets/profile.jpg";
+import newRequest from "../../utils/newRequest";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const { pathname } = useLocation();
   const isActive = () => {
@@ -19,12 +23,17 @@ const Navbar = () => {
     };
   }, []);
 
-  const currentUser = {
-    id: 1,
-    username: "sam",
-    isSeller: true,
-  };
-
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+   
+  const handleLogout = async() => {
+    try {
+      await newRequest.post("/auth/logout")
+      localStorage.setItem("currentUser", null);
+      navigate("/")
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className={active || pathname !== "/" ? "navbar active" : "navbar"}>
       <div className="container">
@@ -43,10 +52,12 @@ const Navbar = () => {
             </Link>
           )}
           {!currentUser?.isSeller && <span>Become A seller</span>}
-          {!currentUser && <button>Join</button>}
+          {!currentUser &&   <Link to="/register" className="link">
+          <button>Join</button>
+            </Link>}
           {currentUser && (
             <div className="user" onClick={() => setOpen(!open)}>
-              <img src={profile} alt="" />
+              <img src={currentUser.img || "/img/noavatar.jpg"} alt="" />
               <span>{currentUser?.username}</span>
               {open && (
                 <div className="options">
@@ -70,7 +81,7 @@ const Navbar = () => {
                   <Link to="/messages" className="link">
                     Messages
                   </Link>
-                  <Link to="/logout" className="link">
+                  <Link to="/logout" className="link" onClick={handleLogout}>
                     Logout
                   </Link>
                 </div>

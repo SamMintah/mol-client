@@ -4,7 +4,7 @@ import newRequest from "../../../utils/newRequest";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
@@ -13,24 +13,25 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await newRequest.post("/auth/login", { username, password });
+      const res = await newRequest.post("/auth/login", { email, password });
       localStorage.setItem("currentUser", JSON.stringify(res.data));
       navigate("/")
     } catch (err) {
-      setError(err.response.data);
+      setError(err.res.data);
     }
   };
 
   return (
     <div className="login">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={ handleSubmit }>
+      {error && error}
         <h1>Sign in</h1>
-        <label htmlFor="">Username</label>
+        <label htmlFor="">email</label>
         <input
-          name="username"
+          name="email"
           type="text"
-          placeholder="johndoe"
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="email"
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <label htmlFor="">Password</label>
@@ -40,7 +41,6 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Login</button>
-        {error && error}
       </form>
     </div>
   );

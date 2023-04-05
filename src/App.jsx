@@ -20,6 +20,7 @@ import {
 import Pay from "./pages/pay/Pay";
 import Success from "./pages/success/Success";
 import "./app.scss";
+import "C:/Users/sam/Desktop/mol/mol-client/node_modules/infinite-react-carousel/lib/carousel/style.css?inline";
 
 
 function App() {

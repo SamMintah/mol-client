@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 function Register() {
   const [file, setFile] = useState(null);
   const [user, setUser] = useState({
-    username: "",
-    email: "",
+    username:"",
+    email:"",
     password: "",
+    phone:"",
     img: "",
     country: "",
     isSeller: false,
-    desc: "",
+    about: "",
   });
 
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ function Register() {
       return { ...prev, isSeller: e.target.checked };
     });
   };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -52,7 +54,7 @@ function Register() {
           <input
             name="username"
             type="text"
-            placeholder="johndoe"
+            placeholder="username"
             onChange={handleChange}
           />
           <label htmlFor="">Email</label>
@@ -75,7 +77,7 @@ function Register() {
           />
           <button type="submit">Register</button>
         </div>
-        <div className="right">
+        <div className="right"> 
           <h1>I want to become a seller</h1>
           <div className="toggle">
             <label htmlFor="">Activate the seller account</label>
@@ -94,7 +96,7 @@ function Register() {
           <label htmlFor="">Description</label>
           <textarea
             placeholder="A short description of yourself"
-            name="desc"
+            name="about"
             id=""
             cols="30"
             rows="10"
